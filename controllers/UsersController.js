@@ -8,8 +8,7 @@ const UsersController = {
     const { email, password } = req.body;
     if (!email) return res.status(400).json({ error: 'Missing email' });
     if (!password) return res.status(400).json({ error: 'Missing password' });
-    const database = process.env.DB_DATABASE || 'files_manager';
-    const coll = await dbClient.client.db(database).collection('users');
+    const coll = await dbClient.db.collection('users');
     const user = await coll.findOne({ email });
     if (user) return res.status(400).json({ error: 'Already exist' });
     const result = await coll.insertOne({ email, password: sha1(password) });
@@ -21,8 +20,7 @@ const UsersController = {
 
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-    const database = process.env.DB_DATABASE || 'files_manager';
-    const coll = await dbClient.client.db(database).collection('users');
+    const coll = await dbClient.db.collection('users');
     const user = await coll.findOne({ _id: ObjectId(userId) });
     return res.json({ id: user._id, email: user.email });
   },
