@@ -5,8 +5,8 @@ const AppController = {
   getStatus: (req, res) => {
     res.json({ redis: redisClient.isAlive(), db: dbClient.isAlive() });
   },
-  getStats: (req, res) => {
-    res.json({ users: dbClient.nbUsers(), files: dbClient.nbFiles() });
+  getStats: async (req, res) => {
+    res.json({ users: await dbClient.nbUsers(), files: await dbClient.nbFiles() });
   },
 };
 
