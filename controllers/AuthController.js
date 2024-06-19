@@ -10,6 +10,7 @@ const AuthController = {
     const email = cred.split(':')[0];
     const password = sha1(cred.split(':')[1]);
 
+    if (!email || !password) return res.status(401).json({ error: 'Unauthorized' }); 
     const coll = await dbClient.db.collection('users');
     const user = await coll.findOne({ email, password });
 
