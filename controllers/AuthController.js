@@ -9,7 +9,7 @@ const AuthController = {
     const cred = Buffer.from(auth.split(' ')[1], 'base64').toString('utf8');
     if (!cred) return res.status(401).json({ error: 'Unauthorized' });
     const email = cred.split(':')[0];
-    const password = sha1(cred.split(':')[1]); 
+    const password = sha1(cred.split(':')[1]);
     const coll = await dbClient.db.collection('users');
     const user = await coll.findOne({ email, password });
 
