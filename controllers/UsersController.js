@@ -9,7 +9,7 @@ const UsersController = {
     const password = sha1(req.body.password);
     const database = process.env.DB_DATABASE || 'files_manager';
     const coll = dbClient.client.db(database).collection('users');
-    if (coll.find({ email: email }) res.status(400).json({ error: 'Already exist' });
+    if (coll.find({ email: email })) res.status(400).json({ error: 'Already exist' });
     const result = await coll.insertOne({email: email, password: password });
     res.status(201).json({ email: email, id: result.insertedId });
   },
